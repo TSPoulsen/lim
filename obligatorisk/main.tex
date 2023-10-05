@@ -1,0 +1,378 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[]{amssymb} %gives us the character \varnothing
+\usepackage{cite} % bibtex
+\usepackage{geometry}
+    \geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=25mm,
+    right=25mm,
+    top=20mm,
+}
+
+
+\include{symbols}
+\title{\textbf{LIM - Obligatorisk Aflevering}}
+\author{Tim Sehested Poulsen - tpw705@alumni.ku.dk}
+\date\today
+%This information doesn't actually show up on your document unless you use the maketitle command below
+\begin{document}
+\maketitle %This command prints the title based on information entered above
+%Section and subsection automatically number unless you put the asterisk next to them.
+\section*{Opgave 1}
+\subsection*{(a) Vis at $\forall A \subseteq \mN : \mu(A) = \sum_{n \in A} \mu( \{ n \} )$}
+Lad $A \subseteq \mN$ være en vilkårlig delmængde, da kan vi skrive $A$ 
+som $A = {\bigcup}_{n \in A} \{n\}$ hvilket er en tællelig forening af disjunkte mængder eftersom
+$\#A \le \#\mN$ da det er en delmængde.
+Derfor kan vi bruge definition 4.1.($M_2$) \cite{lim} til at konkludere at 
+\[
+    \mu(A) = \mu( {\bigcup}_{n \in A} \{n\} ) = \sum_{n \in A} \mu( \{n\} )
+\]
+Vi kan ydermere konkludere at hvis $\mu(\{n\}) = 0$ for ethvert $n \in \mN$, så må vi have at
+for et arbritrært $A \subseteq \mN$ at :
+\[
+    \mu(A) = \sum_{n \in A} \mu( \{ n \} ) = \sum_{n \in A} 0 = 0
+\]
+hvilket præcist vil sige at $\mu(A) = 0$ for alle $A \subseteq \mN$.
+
+\subsection*{(b)}
+For at vise at $\mu(\{n\}) = 2 \cdot (\frac{1}{3})^{n}$ for et $n \in \mN$ 
+er et sandsynlighedsmål skal vi vise at $\mu(\mN) = 1$. Jeg har givet at $\mu$ er et mål
+derfor kan jeg bruge definition 4.1.($M_2$) \cite{lim} 
+til at se følgende:
+\[
+    \mu(\mN) = \mu( {\bigcup}_{n \in \mN} \{n\} ) = \sum_{n \in \mN} \mu( \{n\} ) 
+    = \sum_{n \in \mN} 2 \cdot (\frac{1}{3})^{n} = 2 \cdot \sum_{n = 1}^{\infty} (\frac{1}{3})^{n}
+\]
+Jeg har fra sætning 2.4 \cite{an1} at $\sum_{n=1}^{\infty} \frac{1}{3^n}$ er en konvergent geometrisk række
+som konvergerer mod 
+\[
+    \sum_{n=1}^{\infty} \frac{1}{3^n} = \frac{1}{1-\frac{1}{3}} - 1 = \frac{3}{2} - 1 = \frac{1}{2}
+\]
+Da har vi at $\mu(\mN) = 2 \cdot \sum_{n=1}^{\infty} \frac{1}{3^n} = 2 \cdot \frac{1}{2} = 1$.
+
+Vi lader $E = \setdef{2n}{n \in \mN}$, være mængden af lige tal.
+Det skrives igen som en tællelig forening af disjunkte mængder, og vi kan derfor bruge
+definition 4.1.($M_2$) \cite{lim} til at se følgende:
+\[
+    \mu(E) = \mu(\bigcup_{n \in \mN} \{2n\}) = \sum_{n=1}^{\infty} \mu(\{ 2n \})
+    = \sum_{n=1}^{\infty} 2 \cdot (\frac{1}{3})^{2n} = 2 \cdot \sum_{n=1}^{\infty} (\frac{1}{9})^{n}
+\]
+Igen har vi en konvergent geometrisk række som konvergerer mod
+\[
+    \sum_{n=1}^{\infty} (\frac{1}{9})^{n} = \frac{1}{1-\frac{1}{9}} - 1 = \frac{9}{8} - 1 = \frac{1}{8}
+\]
+Altså er $\mu(E) = 2 \cdot \frac{1}{8} = \frac{1}{4}$.
+
+\subsection*{c)}
+Vi kan ikke slutte at $\mu=0$ i dette eksempel.
+Se bare på målrummet $(\mR, \mathcal{B}(\mR), \lambda)$ 
+hvor $\lambda$ er Lebesgue målet på $\mR$. Vi har fra sætning 3.7 \cite{lim} at
+$\mathcal{B}(\mR) = \sigma(\mathfrak{L})$ hvor $\mathfrak{L}$ er mængden af alle lukkede
+mængder og da ethvert singleton er lukket må det derfor være i Borel $\sigma$-algebraen.
+Vi har da at for $x \in \mR$ at
+\[
+    \lambda(\{x\}) = \lambda([x,x]) = x-x = 0
+\]
+Så i konklusion har vi at $\forall x \in \mR : \{x\} \in \mathcal{B}(\mR) \land \lambda(\{x\}) = 0$
+men vi har bestemt ikke at $\lambda = 0$, per definitionen af Lebesgue målet.
+
+\section*{Opgave 2}
+\subsection*{(a)}
+Fra bemærkning 5.3.(ii) \cite{lim} har vi følgende udsagn
+\begin{align*}
+    G \subseteq \sigma(H) \implies \sigma(G) \subseteq \sigma(H)  \\
+    H \subseteq \sigma(G) \implies \sigma(H) \subseteq \sigma(G)
+\end{align*}
+Derfor vil jeg først vise at $G \subseteq \sigma(H)$.
+
+Lad $(-a, a) \in G$ for et $a \ge 0$.
+Jeg definerer derudover $a_{n} := a - \frac{a}{n+1}$, ret simpelt har vi at 
+$\lim_{n \to \infty} a_{n} = a$ samt $a_n > 0$ for alle $n \in \mN$. Jeg har da at
+\footnote{Det er måske ikke selvindlysende men jeg vil tage for 
+givet at vi har lært det fra Analyse 1.} 
+\[
+    (-a,a) = \bigcup_{n \in \mN} [ -a_n  , a_n]
+\]
+hvor hver $[ -a_n  , a_n] \in H \subseteq \sigma(H)$.
+Fra definition 3.1.($\Sigma_3$) \cite{lim} har vi så at 
+\[
+(-a,a) = \bigcup_{n \in \mN} [- a_n, a_n ] \in \sigma(H)
+\]
+Ligeledes kan vi vise at $H \subseteq \sigma(G)$.
+Lad $[-a, a] \in H$ for et $a \ge 0$. Vi kan da skrive 
+\[
+    [-a, a] = \bigcap_{n \in \mN} (-a - \frac{1}{n}, a + \frac{1}{n})
+\]
+hvor hver
+$(-a - \frac{1}{n}, a + \frac{1}{n}) \in G \subseteq \sigma(G)$.
+Da har vi fra properties 3.2.(iii) \cite{lim} at
+\[
+    [-a, a] = \bigcap_{n \in \mN} (-a - \frac{1}{n}, a + \frac{1}{n}) \in \sigma(G)
+\]
+Derfor har vi at $G \subseteq \sigma(H)$ og $H \subseteq \sigma(G)$ og derfor må
+$\sigma(G) = \sigma(H)$.
+
+\subsection*{(b)}
+Vi har fra Opgave S2.4 at for $F \subseteq X$ er 
+\[
+    \Sigma_{F} := \setdef{A \subseteq X}{A \cap F = \emptyset \lor A \cap F = F}
+\]
+en $\sigma$-algebra på $X$.
+Observer derfor at $\Sigma_{\{-1,1\}}$ er en $\sigma$-algebra på $\mR$.
+Specielt kan vi se at
+\[
+    [0,1] \cap \{-1,1\} = \{1\}
+\]
+hvilket vil sige at $[0,1] \notin \Sigma_{\{-1,1\}}$.
+Jeg vil nu vise at $H \subseteq \Sigma_{\{-1,1\}}$. Tag et interval 
+$[-a,a] \in H$ for et $a \ge 0$. Vi kan nu sige at
+\begin{align*}
+    [-a,a] \cap \{-1,1\} =
+    \begin{cases}
+        \{-1,1\} & \text{når } a \ge 1 \\
+        \emptyset & \text{når } 0 \le a < 1
+    \end{cases}
+\end{align*}
+Altså er $[-a,a] \in \Sigma_{\{-1,1\}}$ for ethvert $a \ge 0$.
+Derfor kan vi nu konkludere at $H \subseteq \Sigma_{\{-1,1\}}$ og derved også at 
+$\sigma(H) \subseteq \Sigma_{\{-1,1\}}$. \\
+Da
+$[0,1] \notin \Sigma_{\{-1,1\}}$ må vi også have at $[0,1] \notin \sigma(H) = \sigma(G)$.
+Vi ved at alle lukkede mængder er indeholdt i $\mathcal{B}(\mR)$
+fra sætning 3.7 \cite{lim}.
+Specielt da $[0,1]$ er lukket må den være i $\mathcal{B}(\mR)$, 
+men samtidig er $[0,1] \notin \sigma(G)$ altså er
+$\sigma(G) \neq \mathcal{B}(\mR)$.
+
+
+\section*{Opgave 3}
+\subsection*{(a)}
+Lad $A \in \fA$, vi trivielt at $A \cup A^{c} = X$ og $A \cap A^{c} = \emptyset$.
+Derudover ved vi specielt at $\mu(X) = 1$ da $(X, \fA, \mu)$ er et sandsynlighedsrum.
+Altså har vi ved brug af proposition 4.3.(i) \cite{lim} at
+\begin{align*}
+    &\mu(A) + \mu(A^{c}) = \mu(A \cup A^{c}) = \mu(X) = 1 \\
+    &\implies \mu(A^{c}) = 1 - \mu(A)
+\end{align*}
+\subsection*{(b)}
+Vi har fra proposition 4.3.(viii) og fra forrige opgave at
+\begin{align*}
+    \mu(\bigcup_{k = 1}^n A_k^{c}) \le \sum_{k=1}^n \mu(A_k^{c}) = \\
+     \sum_{k=1}^n 1 - \mu(A_k) = n - \sum_{k=1}^n \mu(A_k)
+\end{align*}
+Ved at bruge uligheden $\sum_{k=1}^n \mu(A_k) > n - 1$ får vi
+\[
+    n - \sum_{k=1}^n \mu(A_k) < n - (n-1) = 1
+\]
+\subsection*{(c)}
+Vi har fra delophave a) at
+\[
+    \mu( \bigcap_{k=1}^{n} A_k) = 1 - \mu( \left( \bigcap_{k=1}^{n} A_k \right)^{c})
+\]
+Ved brug af De Morgans lov har vi at $\left( \bigcap_{k=1}^{n} A_k \right)^{c} = \bigcup_{k=1}^{n} A_k^{c}$ altså
+\[
+    1 - \mu( \left( \bigcap_{k=1}^{n} A_k \right)^{c}) = 1 - \mu( \bigcup_{k=1}^{n} A_k^{c}) > 0
+\]
+Hvor den den sidste ulighed kommer delopgave b).
+
+\subsection*{(d)}
+Lad $A_1 = A_2 = \dots = A_{n-1} = X$ for et sandsynlighedsrum $(X, \fA, \mu)$.
+og lad $A_n = \emptyset$. Vi har da at 
+\[
+    \sum_{k=1}^{n} \mu(A_k) = 
+    \sum_{k=1}^{n-1} \mu(X) + \mu(\emptyset) = 
+    n - 1
+\]
+Eftersom at for et sandsynlighedsrum er $\mu(X) = 1$ og for 
+alle mål vil det gælder at $\mu(\emptyset) = 0$ per definition 4.1.($M_1$) \cite{lim}.
+
+\section*{Opgave 4}
+\subsection*{(a)}
+Ved at dele mængden op i de to tilfælde givet i definitionen af $u$ ser jeg at
+\begin{align*}
+&\{u \ge a \} = 
+\setdef{x \in \mR}{u(x) \ge a} \\ 
+&=\setdef{x \in (-\infty,0]}{u(x) \ge a} \cup \setdef{x \in (0,\infty)}{u(x) \ge a} \\
+&=\setdef{x \in (-\infty,0]}{ -1 \ge a} \cup \setdef{x \in (0,\infty)}{x \ge \frac{a}{2}+1} \\
+\end{align*}
+Det kan også skrive som intervaller på tuborgform som
+\begin{align*}
+\{ u \ge a \} = 
+    \begin{cases}
+        (-\infty,0] \cup [\frac{a}{2} + 1, \infty) & \text{hvis } a \le -1 \\
+        (0, \infty) \cap [\frac{a}{2}+1, \infty) & \text{hvis } a > -1
+    \end{cases}
+\end{align*}
+Vi kan nu observere at både
+$(-\infty, 0],(0,\infty), [\frac{a}{2}+1, \infty) \in \mathcal{B}(\mR)$ fra remark 3.9 \cite{lim}.
+Fra properties 3.2 ved vi at en $\sigma$-algebra er lukket under tællelige mange
+foreninger og tællelige mange snit. Altså må $\{u \ge a\} \in \mathcal{B}(\mR)$ uanset
+hvad $a \in \mR$ er.
+Fra lemma 8.1 \cite{lim} kan vi da konkludere at da 
+$\{u \ge a \} \in \mathcal{B}(\mR)$ for alle $a \in \mR$
+er $u$ $\mathcal{B}(\mR) / \mathcal{B}(\mR)$-målelig.
+
+\subsection*{(b)}
+Da $u(\lambda) := \lambda \circ u^{-1}$ og $u$ er en Borel funktion, 
+og $\lambda$ er et mål på $(\mR, \mathcal{B}(\mR))$ ved vi fra sætning 7.6 \cite{lim} at
+$u(\lambda)$ et mål på $(\mR, \mathcal{B}(\mR))$.
+Jeg kan nu udregne 
+\begin{align*}
+    &u(\lambda)(\{ -1 \}) = \lambda(u^{-1}(\{-1\})) 
+    = \lambda(\setdef{x \in \mR}{u(x) = -1})  \\
+\end{align*}
+Her kan jeg bruge definitionen af $u$ til at se at 
+\[
+    \setdef{x \in \mR}{u(x) = -1} = (-\infty, 0] \cup \setdef{x \in \mR }{2x -2 = -1} = (-\infty, 0] \cup \{ \frac{1}{2} \}
+\]
+Så vi har at 
+\begin{align*}
+    \lambda(\setdef{x \in \mR}{u(x) = -1})
+    = \lambda((-\infty, 0] \cup \{\frac{1}{2}\} ) 
+    = \lambda((-\infty, 0]) + \lambda(\{\frac{1}{2}\} ) = \infty + 0 = \infty
+\end{align*}
+Hvor jeg kan dele målet op i to eftersom mængderne er disjunkte.
+På tilsvarende vis kan jeg udregne
+\begin{align*}
+u(\lambda)([0,1]) = \lambda(u^{-1}( [0,1] )) 
+= \lambda(\setdef{x \in \mR}{0 \le u(x) \le 1]})
+= \lambda([1, \frac{3}{2}]) = \frac{3}{2} - 1 = \frac{1}{2}
+\end{align*}
+
+\section*{Opgave 5}
+Vi observerer først at 
+\[
+    \forall i,j \in \mN : A_i \cap A_j = \emptyset \text{ hvis } i \neq j
+\]
+derudover har vi at for ethvert $m \in \mN$ så er 
+$u_m := \sum_{i=1}^{m} \frac{1}{n} \cdot  1_{A_n} \in \mathcal{M}_{\bar{\mR}}^{+}(\mathcal{B}(\mR))$ 
+grundet eksempel 8.5.(ii) \cite{lim}.
+Fra korollar 9.9 \cite{lim} har vi at at 
+$lim_{m \to \infty} u_m = \sum_{n=1}^{\infty} \frac{1}{n} \cdot  1_{A_n}$ er målelige.
+Altså er $\sum_{n=1}^{\infty} \frac{1}{n} \cdot  1_{A_n} \in \fM_{\bar{\mR}}^{+}(\fB(\mR))$.
+
+Jeg bestemmer nu integralet, igen ved brug af korollar 9.9, og properties 9.8.(ii) \cite{lim}: 
+\[
+    \int_{\mR} \sum_{n=1}^{\infty} \frac{1}{n} \cdot  1_{A_n} d\lambda
+    = \sum_{n=1}^{\infty} \int_{\mR} \frac{1}{n} \cdot  1_{A_n} d\lambda
+    = \sum_{n=1}^{\infty} \frac{1}{n} \int_{\mR} 1_{A_n} d\lambda
+\]
+Her kan vi bruge properties 9.8.(i) til at sige at 
+\[
+\int_{\mR} 1_{A_n} d\lambda = \lambda(A_n) = \lambda([n, n+ \frac{1}{n+1}]) = n + \frac{1}{n+1} - n = \frac{1}{n+1}
+\]
+Altså får vi
+\[
+\sum_{n=1}^{\infty} \frac{1}{n} \int_{\mR} 1_{A_n} d\lambda
+= \sum_{n=1}^{\infty} \frac{1}{n} \cdot \frac{1}{n+1} 
+= \sum_{n=1}^{\infty} \frac{1}{n(n+1)}
+\]
+ved brug af integraltesten, sætning 2.20 \cite{an1} kan vi konkludere at 
+denne række konvergerer mod $1$.
+Så i konklusion er $\int_{\mR} \sum_{n=1}^{\infty} \frac{1}{n} \cdot  1_{A_n} d\lambda = 1$.
+
+\section*{Opgave 6}
+
+\subsection*{(a)}
+Korollar 8.10 siger at for en følge 
+$(u_n)_{n \in \mN} \subseteq \fM_{\bar{\mR}}^{+}(\fA)$ som konvergerer mod 
+$u_n \underset{n \to \infty}{\longrightarrow} u$ så vil $u \in \MesSpace$.
+Da vi har konvergens har vi altså fra properties A.1.(v) \cite{lim} at 
+\[
+    \underset{n \to \infty}{\lim \sup} \text{ } u_n =
+    \underset{n \to \infty}{\lim \inf} \text{ } u_n =
+    \lim_{n \to \infty} u_n  
+    = u
+\] 
+Så ved brug af sætning 9.11 \cite{lim} har vi at
+\[
+    \int_{X} u d \mu =
+    \int_{X} \lim_{n \to \infty} u_n d \mu =
+    \int_{X} \underset{n \to \infty}{\lim \inf} \text{ } u_n d \mu \le
+    \underset{n \to \infty}{\lim \inf} \int_{X} u_n d \mu
+\]
+Eftersom $\int_{X} u_n d \mu \underset{n \to \infty}{\longrightarrow} 2023$ har vi konvergens
+af integralet og derfor bruges properties A.1.(v) \cite{lim} igen til at sige at
+\[
+    \underset{n \to \infty}{\lim \inf} \int_{X} u_n d \mu =
+    \lim \int_{X} u_n d \mu = 2023
+\]
+Sammensætter vi det hele ser vi at $\int_{X} u d \mu \le 2023$.
+
+\subsection*{(b)}
+Hvis vi ved at $u_1 \le u_2 \le u_3 \le \dots$ kan vi først konstatere, ved brug af observation 1.56 \cite{an1}, at 
+$\sup_{n \in \mN} u_n = \lim_{n \to \infty} u_n = u$.
+Ligeledes kan vi bruge observation 1.56 \cite{an1} på integralet da properties 9.8.(iv) siger at
+\[
+    u_n \le u_{n+1} \implies \int_{X} u_n d \mu \le \int_{X} u_{n+1} d \mu
+\]
+altså  har vi for integralet $\sup_{n \in \mN} \int_{X} u_n = \lim_{n \to \infty} \int_{X} u_n = 2023$.
+Vi kan til sidst konkludere at
+\[
+\int_{X} u d \mu = 
+\int_{X} \lim_{n \to \infty} u_n d \mu = 
+\int_{X} \sup_{n \in \mN} u_n d \mu = 
+\sup_{n \in \mN} \int_{X} u_n d \mu =
+\lim_{n \to \infty} \int_{X} u_n  = 2023
+\]
+\subsection*{(c)}
+Ved igen at bruge properties 9.8.(iv) (monotonicitet af integralet) \cite{lim} har vi altså
+at
+\[
+\forall n \in \mN : u_n \le u \implies \int_{X} u_n d \mu \le \int_{X} u d \mu 
+\]
+Da grænseværdier respekterer monotonicitet har vi da at
+\[
+    2023 = \lim_{n \to \infty} \int_{X} u_n d \mu \le
+    \lim_{n \to \infty} \int_{X} u d \mu = 
+    \int_{X} u d \mu
+\]
+Kombinerer vi dette med resultatet fra delopgave a) ser vi at
+\[
+    2023 \le \int_{X} u d \mu \le 2023 \implies \int_{X} u d \mu = 2023
+\]
+\subsection*{(d)}
+Jeg definerer
+\begin{align*}
+    &u_n : \mR \to \mR \\
+    &u_n(x) := 2000n \cdot 1_{(0,\frac{1}{n})}(x) + 23 \cdot 1_{[1,2]}(x)
+\end{align*}
+Hvorfra jeg kan se at det er simpel funktion fra definition 8.6 \cite{lim} og 
+$\forall x \in \mR : u_n(x) \ge 0$, så med
+konklusionen fra eksempel 8.5.(iii) har jeg altså også at $u_n \in \fM^{+}(\fB(\mR))$.
+Ved brug af egenskaberne fra properties 9.8 \cite{lim} har jeg altså at
+\begin{align*}
+    \int_{\mR} u_n d \lambda
+    &=\int_{\mR} 2000n \cdot 1_{(0,\frac{1}{n})}(x) + 23 \cdot 1_{[1,2]}(x) d \lambda \\
+    &=\int_{\mR} 2000n \cdot 1_{(0,\frac{1}{n})}(x) d \lambda + \int_{\mR} 23 \cdot 1_{[1,2]}(x) d \lambda \\
+    &=2000n \cdot \int_{\mR} 1_{(0,\frac{1}{n})}(x) d \lambda + 23 \cdot \int_{\mR}  1_{[1,2]}(x) d \lambda \\
+    &=2000n \cdot \lambda((0,\frac{1}{n})) + 23 \cdot \lambda([1,2]) \\
+    &=2000n \cdot \frac{1}{n} + 23 \cdot (2-1) 
+    =2023 
+\end{align*}
+Jeg vil samtidig også have at $u_n \overset{pkt. vis}{\underset{n \to \infty}{\longrightarrow}} u$ hvor
+\[
+    u(x) := 23 \cdot 1_{[1,2]}(x)
+\]
+Hvor det af samme argumenter som før kan ses at $u \in \fM^{+}(\fB(\mR))$ 
+og $\int_{X} u d \mu  = 23$.
+
+
+
+
+
+
+
+
+
+
+
+\bibliography{refs.bib}{}
+\bibliographystyle{acm}
+
+
+\end{document}
